@@ -1,0 +1,21 @@
+.MODEL SMALL 
+.STACK 100 
+.DATA  
+
+msg1 DB "This is MY first PROGRAM$"
+
+.CODE
+MOV AX, @DATA
+MOV DS, AX
+
+LEA DX, msg1            
+MOV AH, 09H
+INT 21H
+
+
+MOV AH, 4CH
+INT 21H
+
+END
+
+
