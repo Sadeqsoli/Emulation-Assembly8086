@@ -1,0 +1,4 @@
+Read macro num
+mov ah,01
+int 21h
+endm

@@ -1,0 +1,24 @@
+.MODEL SMALL
+.DATA
+MSG   DB  "YOUR ENTERED STRING IS",'$'
+.CODE
+MOV   AX,@DATA
+MOV   DS,AX
+
+LEA DX,MSG          
+MOV AH,09H
+INT 21H
+READING:                
+MOV AH,01
+INT 21H
+CMP AL,13              
+JE EXIT
+
+MOV DL,0AH         
+MOV AH,02           
+INT 21H
+LOOP READING      
+EXIT:
+MOV AH,4CH 
+INT 21H
+END
