@@ -1,24 +1,37 @@
 .MODEL SMALL
+.STACK 100h
+
 .DATA
-MSG   DB  "YOUR ENTERED STRING IS",'$'
+MSG DB "YOUR ENTERED STRING IS",'$'
+
 .CODE
-MOV   AX,@DATA
-MOV   DS,AX
+MAIN PROC
+    ; Initialize the data segment
+    MOV AX, @DATA
+    MOV DS, AX
 
-LEA DX,MSG          
-MOV AH,09H
-INT 21H
-READING:                
-MOV AH,01
-INT 21H
-CMP AL,13              
-JE EXIT
+    ; Display the message
+    LEA DX, MSG
+    MOV AH, 09h
+    INT 21h
 
-MOV DL,0AH         
-MOV AH,02           
-INT 21H
-LOOP READING      
+READING:
+    ; Read a character from the keyboard
+    MOV AH, 01h
+    INT 21h
+    CMP AL, 13           ; Compare with Enter key (ASCII 13)
+    JE EXIT
+
+    ; Display the entered character
+    MOV DL, AL
+    MOV AH, 02h
+    INT 21h
+    JMP READING
+
 EXIT:
-MOV AH,4CH 
-INT 21H
-END
+    ; Terminate the program
+    MOV AH, 4Ch
+    INT 21h
+
+MAIN ENDP
+END MAIN
